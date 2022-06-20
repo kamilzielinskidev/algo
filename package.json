@@ -3,7 +3,7 @@
     "ts-node-dev": "^2.0.0"
   },
   "scripts": {
-    "start": "tsnd --respawn src/main.ts",
+    "start": "tsnd --respawn",
     "test": "jest"
   },
   "dependencies": {

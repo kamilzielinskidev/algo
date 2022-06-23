@@ -1,0 +1,6 @@
+- heaps are used for keeping easy getting the values
+- they look like binary tree
+- parent node is always lte child nodes
+- we try to keep the left and right branches balanced
+- while inserting new value, we put it at the bottom and switch the places with parents if needed (while they are lt their parents)
+- while deleting the node, we put the inbalanced node in their place and sort the tree from top to the bottom

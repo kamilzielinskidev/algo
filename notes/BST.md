@@ -1,0 +1,1 @@
+- while checking if  values are equal, check if values are equal by reference, then it's checked if it is not null, then check significiant fields

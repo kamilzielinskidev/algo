@@ -5,16 +5,15 @@
     - for root if there is 1 key in node, we add key in order
     - for root if there is 2 keys in node, we add key in order and move the middle key to parent in order and then we split children
     - for not root if there is 2 keys in node, we add key in order and move the middle key to parent, then we split nodes and repeat recursively
-```
-       ER
-    /  |   \
-  AC   HP   SX
-
-   insert L
-
-       ER                    ELR               L
-    /  |    \    ->       /  | | \    ->     /   \
-  AC   HLP   SX         AC   H P  SX        E     R
-                                           / \   / \
-                                         AC   H P   SX
-```
+    - ![](./BST%202-3.png)
+  - for red/black tree the connection between two values in same node was represented as different colors
+    - every new node - red link
+    - right child red - rotate left
+    - left child red and left.left grandchild red - rotate right
+    - both child red - flip colors
+  - ![](./BST%20red-black%20rotation%20and%20flip.png)
+- B-tree is a tree where node may be any size (for example 1024)
+  - for a 60 bilion records it may need only 4 probes (1024^4 > 60bln)
+  - ![](./B-tree%20anatomy.png)
+  - ![](./B-tree%20searching.png)
+  - ![](./B-tree%20inserting.png)

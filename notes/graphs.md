@@ -1,0 +1,2 @@
+- most common way of representing graph is a adjacency-list
+  - ![](adjacency-list.png)

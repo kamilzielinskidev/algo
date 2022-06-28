@@ -1,2 +1,6 @@
 - most common way of representing graph is a adjacency-list
   - ![](adjacency-list.png)
+- for depth-first search ![](depth-first%20search.png) uses recursive technic 'ball of string' (like in a maze) stack for going through the whole graph from one point and marking the paths if they were visited and the what edges are they connected to (for first time)
+  - ![](non-searchable%20depth-first%20search.png)
+- for breadth-first search ![](breadth-first%20search.png) goest from the start through all connections, then put them in a queue, then goes by the queue
+  - it stores information about how to get to the vertice and how many paths it needs

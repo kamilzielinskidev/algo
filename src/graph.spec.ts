@@ -10,6 +10,17 @@ export class Graph {
 
   #v: number = 0;
   #adjacences: Bag<number> = [];
+  #marked: boolean[] = [];
+  edgeTo: number[] = [];
+
+  #dfs = (a: number) => {
+    this.#marked[a] = true;
+    for (let [indexOfAdjacency] of this.#adjacences.entries()) {
+      if (this.#marked[indexOfAdjacency] === false) {
+        this.#dfs(indexOfAdjacency);
+      }
+    }
+  };
 
   addEdge = (a: number, b: number): void => {
     this.#adjacences[a].push(b);
@@ -18,5 +29,9 @@ export class Graph {
 
   adjacences = (a: number): number[] => {
     return this.#adjacences[a];
+  };
+
+  Dfs = (a: number) => {
+    this.#dfs(a);
   };
 }

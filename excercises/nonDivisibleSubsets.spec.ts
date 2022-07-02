@@ -1,57 +1,60 @@
-const filterOutMatches =
-  (divider: number) =>
-  (values: number[]) =>
-  (arr: number[]): number[] => {
-    return arr.filter(
-      (v) => !values.some((value) => (v + value) % divider === 0)
-    );
-  };
-
-const remove = (index: number) => (arr: number[]) => {
-  return [...arr.slice(0, index), ...arr.slice(index + 1)];
+const isDividable = (d: number, a: number, b: number) => {
+  return (a + b) % d === 0;
 };
 
-const getAvailablePermutations = (
-  divider: number,
-  arr: number[],
-  path = [] as number[]
-): number[][] => {
-  if (arr.length === 0) {
-    return [path];
+const check = (d: number, v: number, arr: number[]) =>
+  arr.some((el) => isDividable(d, v, el));
+
+const count = (v: number, arr: number[]) => {
+  let result = 0;
+  arr.forEach((el) => {
+    if (el === v) result += 1;
+  });
+  return result;
+};
+
+const remove = (v: number, arr: number[]) => {
+  arr.forEach((el, i) => {
+    if (el === v) arr.splice(i, 1);
+  });
+};
+
+const nonDivisibleSubset = (k: number, s: number[]) => {
+  let occurances = s.map((v) => v % k);
+  const checked = [] as number[];
+
+  const zeroes = count(0, occurances);
+
+  if (zeroes > 1) {
+    occurances = occurances.filter((v) => v !== 0);
+    occurances.push(0);
   }
 
-  return arr
-    .map((v, i) => {
-      const newArr = filterOutMatches(divider)([...path, v])(remove(i)(arr));
-      return getAvailablePermutations(divider, newArr, [...path, v]);
-    })
-    .flat();
-};
+  if (k % 2 === 0) {
+    const halves = count(k / 2, occurances);
+    if (halves > 1) {
+      occurances = occurances.filter((v) => v !== k / 2);
+      occurances.push(k / 2);
+    }
+  }
 
-const getLongestArrayLen = (arr: number[][]) => {
-  return arr.reduce((acc, next) => {
-    return next.length > acc ? next.length : acc;
-  }, 0);
+  occurances.forEach((v) => {
+    if (checked.find((el) => el === v)) return;
+    checked.push(v);
+    if (check(k, v, occurances) && v !== k / 2) {
+      const matchingValue = k - v;
+      const countA = count(v, occurances);
+      const countB = count(matchingValue, occurances);
+      if (countA >= countB) remove(matchingValue, occurances);
+      else remove(v, occurances);
+    }
+  });
+
+  return occurances.length;
 };
 
 it("", () => {
-  expect(filterOutMatches(4)([1, 2])([1, 8, 0, 3, 2])).toEqual([1, 8, 0]);
-  expect(remove(2)([1, 2, 3, 4])).toEqual([1, 2, 4]);
-  expect(remove(0)([1, 2, 3, 4])).toEqual([2, 3, 4]);
-  expect(remove(3)([1, 2, 3, 4])).toEqual([1, 2, 3]);
-  expect(getAvailablePermutations(3, [1, 7, 2, 4])).toEqual([
-    [1, 7, 4],
-    [1, 4, 7],
-    [7, 1, 4],
-    [7, 4, 1],
-    [2],
-    [4, 1, 7],
-    [4, 7, 1],
-  ]);
-  expect(getLongestArrayLen([[3, 5], [1, 2, 4], [9]])).toBe(3);
-  expect(
-    getLongestArrayLen(
-      getAvailablePermutations(4, [19, 10, 12, 10, 24, 25, 22])
-    )
-  ).toBe(3);
+  expect(nonDivisibleSubset(4, [19, 10, 12, 10, 24, 25, 22])).toBe(3);
+  expect(nonDivisibleSubset(1, [1, 2, 3, 4, 5])).toBe(1);
+  expect(nonDivisibleSubset(4, [1, 2, 3, 4, 5, 6, 7, 8, 9, 10])).toBe(5);
 });

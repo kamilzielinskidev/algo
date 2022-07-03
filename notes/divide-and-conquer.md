@@ -1,0 +1,2 @@
+- divide and conquer method is used for solving problems that can be divided in smaller, simillar problems. These smaller problems recursively solved and merged
+- for example merge sort

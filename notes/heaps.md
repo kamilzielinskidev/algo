@@ -1,6 +1,11 @@
-- heaps are used for keeping easy getting the values
-- they look like binary tree
-- parent node is always lte child nodes
-- we try to keep the left and right branches balanced
-- while inserting new value, we put it at the bottom and switch the places with parents if needed (while they are lt their parents)
-- while deleting the node, we put the inbalanced node in their place and sort the tree from top to the bottom
+- parent node is always gte child nodes for max oriented and lte for min oriented
+- keeps the left and right branches balanced
+- heap can be represented as array where:
+  - root is a[1]
+  - child nodes are a[2k] and a[2k+1]
+  - parent node is a[k/2]
+- heapsort guarantees the N log N time for sorting
+- heapsort is not optimal for time and memory (in comparision to quicksort and mergesort) but it's not commonly used because:
+  - inner loop takes longer than quick sort's
+  - not stable
+  - quicksort uses caching (using values nearby instead of in some far places like in heapsort)

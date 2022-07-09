@@ -1,4 +1,5 @@
 - parent node is always gte child nodes for max oriented and lte for min oriented
+  - min oriented heaps are used for priority queues, while max are used for sorting most of the time
 - keeps the left and right branches balanced
 - heap can be represented as array where:
   - root is a[1]
